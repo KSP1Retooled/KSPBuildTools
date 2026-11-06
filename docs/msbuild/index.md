@@ -13,7 +13,7 @@ What it does:
 - Includes a target for installing dependencies with CKAN
 - Designed to be used by the [Build github workflow](https://kspbuildtools.readthedocs.io/en/docs/actions/index.html)
 - Includes support for version stamping
-- Detects whether you are building for KSP 1 or KSP Retooled, and can build for both at once
+- Detects whether you are building for stock KSP or KSP Retooled, and can build for both at once
 
 ```{toctree}
 ---

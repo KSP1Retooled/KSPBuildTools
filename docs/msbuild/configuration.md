@@ -98,7 +98,7 @@ The game being built for, either `Stock` or `Retooled`. Set this on the command 
 
 ```{confval} KSPBT_GameVersion
 ---
-default: read from `readme.txt` in the KSP install, otherwise `1.12.5` for KSP 1 and `1.13.0` for Retooled
+default: read from `readme.txt` in the KSP install, otherwise `1.12.5` for stock KSP and `1.13.0` for Retooled
 ---
 The version of the game being built for. For Retooled this decides the `KSPAssemblyDependency` on KSP, and the file name of the Retooled DLL when building for both games.
 ```
@@ -107,7 +107,7 @@ The version of the game being built for. For Retooled this decides the `KSPAssem
 ```{warning}
 You should **not** set or use this property in your csproj file.
 ```
-The root directory of your KSP 1 install. Setting this and {confval}`KSPBT_RetooledGameRoot` builds your mod for both games. See [](retooled.md).
+The root directory of your stock KSP install. Setting this and {confval}`KSPBT_RetooledGameRoot` builds your mod for both games. See [](retooled.md).
 ````
 
 ````{confval} KSPBT_RetooledGameRoot

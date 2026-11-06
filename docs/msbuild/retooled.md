@@ -1,6 +1,6 @@
 # Building for KSP Retooled
 
-KSP1Retooled.BuildTools builds mods for KSP 1 and for [KSP Retooled](https://github.com/KSP1Retooled). Many mods built for KSP 1.12 run on Retooled as they are, so you only need this if your mod has to be compiled against Retooled.
+KSP1Retooled.BuildTools builds mods for stock KSP and for [KSP Retooled](https://github.com/KSP1Retooled). Many mods built for KSP 1.12 run on Retooled as they are, so you only need this if your mod has to be compiled against Retooled.
 
 ## Building for one game
 
@@ -19,7 +19,7 @@ The symbols let you share code between both games:
 #if KSP_RETOOLED
     // Only compiled for Retooled
 #else
-    // Only compiled for KSP 1
+    // Only compiled for stock KSP
 #endif
 ```
 
@@ -45,7 +45,7 @@ Each build then compiles the project twice and puts both DLLs in {confval}`KSPBT
 
 ```
 GameData/MyMod/Plugins/
-  MyMod.dll       loaded by KSP 1
+  MyMod.dll       loaded by stock KSP
   MyMod.1.13.dll  loaded by Retooled
 ```
 
@@ -53,7 +53,7 @@ Both are named `MyMod` as far as the runtime is concerned, and only the file dif
 
 The Retooled build uses its own `bin/retooled` and `obj/retooled` folders. A few things are specific to building both:
 
-- Only the project's own DLL is copied for Retooled. Other files in the output folder, such as NuGet dependencies set to copy locally, come from the KSP 1 build.
+- Only the project's own DLL is copied for Retooled. Other files in the output folder, such as NuGet dependencies set to copy locally, come from the stock KSP build.
 - Project references are built for the matching game, so `dotnet build` on one project is enough.
 - `ModReference` items are resolved in each install, and installed into each by CKAN.
 - Version files are written by the Retooled build, with `KSP_VERSION` and `KSP_VERSION_MAX` set to its version. `KSP_VERSION_MIN` keeps its default of 1.8.
