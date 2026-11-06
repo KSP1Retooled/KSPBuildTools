@@ -24,6 +24,22 @@
     <KSPBT_GenerateVersionFile Condition=" '$(KSPBT_GenerateVersionFile)' == '' ">false</KSPBT_GenerateVersionFile>
   </PropertyGroup>
 
+  <!--
+  A build explicitly targeting Retooled gets its own output folders, so that it never shares incremental
+  state with the KSP1 build of the same project. This has to happen before the project's output paths are
+  calculated, which is why it is in the props file. An autodetected target isn't known yet at this point, but
+  it doesn't need this since only one game is being built.
+  -->
+  <PropertyGroup Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">
+    <_KSPBT_BaseOutputPath>$(BaseOutputPath)</_KSPBT_BaseOutputPath>
+    <_KSPBT_BaseOutputPath Condition=" '$(_KSPBT_BaseOutputPath)' == '' ">bin/</_KSPBT_BaseOutputPath>
+    <!-- When imported from NuGet this runs before the SDK has set its default configuration -->
+    <_KSPBT_Configuration>$(Configuration)</_KSPBT_Configuration>
+    <_KSPBT_Configuration Condition=" '$(_KSPBT_Configuration)' == '' ">Debug</_KSPBT_Configuration>
+    <OutDir>$(_KSPBT_BaseOutputPath)retooled/$(_KSPBT_Configuration)/</OutDir>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)retooled/$(_KSPBT_Configuration)/</IntermediateOutputPath>
+  </PropertyGroup>
+
   <!-- default settings when building normally -->
   <PropertyGroup>
     <!-- The root directory of the mod, the folder that gets placed in GameData -->
@@ -80,6 +96,18 @@
     <_KSPBT_GameExecutable Condition=" $([MSBuild]::IsOsPlatform('Linux')) ">KSP.x86_64</_KSPBT_GameExecutable>
     <_KSPBT_SteamGameRoot Condition=" $([MSBuild]::IsOsPlatform('Windows')) ">C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program</_KSPBT_SteamGameRoot>
     <_KSPBT_SteamGameRoot Condition=" $([MSBuild]::IsOsPlatform('OSX')) ">$(HOME)/Library/Application Support/Steam/steamapps/common/Kerbal Space Program</_KSPBT_SteamGameRoot>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- The layout of KSP libs zips, regardless of the platform they are used on -->
+    <_KSPBT_WindowsManagedRelativePath>KSP_x64_Data/Managed</_KSPBT_WindowsManagedRelativePath>
+
+    <!-- Only exists in the managed folder of a Unity 6 player, so this identifies KSP Retooled -->
+    <_KSPBT_RetooledIdentifier>UnityEngine.HierarchyCoreModule.dll</_KSPBT_RetooledIdentifier>
+
+    <!-- Used when the game's readme.txt isn't available, as is the case for most KSP libs zips -->
+    <_KSPBT_DefaultKSP1Version>1.12.5</_KSPBT_DefaultKSP1Version>
+    <_KSPBT_DefaultRetooledVersion>1.13.0</_KSPBT_DefaultRetooledVersion>
   </PropertyGroup>
 
   <!-- Import a props.user file -->

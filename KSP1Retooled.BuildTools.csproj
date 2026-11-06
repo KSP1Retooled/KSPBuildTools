@@ -23,20 +23,21 @@
     <PlatformTarget>x64</PlatformTarget>
     <NoWarn>1701;1702;CS0649;CS1591;NU5128</NoWarn>
     <AssemblyCopyright>2025 KSPModdingLibs Contributors</AssemblyCopyright>
-    <AssemblyName>KSPBuildTools</AssemblyName>
-    <PackageId>KSPBuildTools</PackageId>
+    <AssemblyName>KSP1Retooled.BuildTools</AssemblyName>
+    <PackageId>KSP1Retooled.BuildTools</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Title>KSP Build Tools</Title>
-    <Description>Tools for developing mods for Kerbal Space Program</Description>
+    <Title>KSP1Retooled Build Tools</Title>
+    <Description>Tools for developing mods for Kerbal Space Program and KSP Retooled</Description>
     <Authors>KSPModdingLibs Contributors</Authors>
-    <RepositoryUrl>https://github.com/KSPModdingLibs/KSPBuildTools</RepositoryUrl>
+    <RepositoryUrl>https://github.com/KSP1Retooled/KSPBuildTools</RepositoryUrl>
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="KSPCommon.props" Pack="True" PackagePath="build/KSPBuildTools.props" />
-    <None Include="KSPCommon.targets" Pack="True" PackagePath="build/KSPBuildTools.targets" />
+    <None Include="KSPCommon.props" Pack="True" PackagePath="build/KSP1Retooled.BuildTools.props" />
+    <None Include="KSPCommon.targets" Pack="True" PackagePath="build/KSP1Retooled.BuildTools.targets" />
+    <None Include="KSPAssemblies.targets" Pack="True" PackagePath="build/KSPAssemblies.targets" />
     <None Include="README.md" Pack="True" PackagePath="/"/>
     <None Include="LICENSE.md" Pack="True" PackagePath="/"/>
   </ItemGroup>

@@ -37,14 +37,14 @@ If set to `true`, adds assembly references to Mono System DLLs.
 ---
 default: `true`
 ---
-If set to `true`, adds assembly references to all UnityEngine assemblies in the KSP install. 
+If set to `true`, adds references to the Unity assemblies listed in `KSPAssemblies.targets`.
 ```
 
 ```{confval} KSPBT_ReferenceGameAssemblies
 ---
 default: `true`, except in the `Unity` configuration
 ---
-If set to `true`, adds references to Assembly-CSharp and Assembly-CSharp-firstpass assemblies from the KSP install.
+If set to `true`, adds references to the KSP assemblies listed in `KSPAssemblies.targets`, such as Assembly-CSharp and KSPAssets.
 ```
 
 ```{confval} KSPBT_ReferenceModAssemblies
@@ -65,7 +65,7 @@ If set to `true`, automatically generates the `KSPAssembly` for your assembly fr
 ---
 default: `true`, except in the `Unity` configuration
 ---
-If set to `true`, automatically generates `KSPAssemblyDependency` attributes for each dependency. Dependencies should have either the `CKANIdentifier` metadata or `KSPAssemblyName` metadata. Versions can be supplied with `CKANVersion` or `KSPAssemblyVersion`. 
+If set to `true`, automatically generates `KSPAssemblyDependency` attributes for each dependency. Dependencies should have either the `CKANIdentifier` metadata or `KSPAssemblyName` metadata. Versions can be supplied with `CKANVersion` or `KSPAssemblyVersion`. Building for Retooled also adds a dependency on that version of KSP. 
 ```
 
 ```{confval} KSPBT_CopyDLLsToPluginFolder
@@ -87,6 +87,34 @@ If set to `true`, automatically generates a version file using the information i
 You should **not** set or use this property in your csproj file.
 ```
 This property should be set to the root directory of your KSP install. see [Locating your KSP Install](ksp-install)
+````
+
+```{confval} KSPBT_TargetGame
+---
+default: detected from the KSP install
+---
+The game being built for, either `KSP1` or `Retooled`. Set this on the command line to build for only one game when {confval}`KSPBT_KSP1GameRoot` and {confval}`KSPBT_RetooledGameRoot` are set. The build fails if the assemblies it finds are from the other game.
+```
+
+```{confval} KSPBT_GameVersion
+---
+default: read from `readme.txt` in the KSP install, otherwise `1.12.5` for KSP 1 and `1.13.0` for Retooled
+---
+The version of the game being built for. For Retooled this decides the `KSPAssemblyDependency` on KSP, and the file name of the Retooled DLL when building for both games.
+```
+
+````{confval} KSPBT_KSP1GameRoot
+```{warning}
+You should **not** set or use this property in your csproj file.
+```
+The root directory of your KSP 1 install. Setting this and {confval}`KSPBT_RetooledGameRoot` builds your mod for both games. See [](retooled.md).
+````
+
+````{confval} KSPBT_RetooledGameRoot
+```{warning}
+You should **not** set or use this property in your csproj file.
+```
+The root directory of your KSP Retooled install. Setting this and {confval}`KSPBT_KSP1GameRoot` builds your mod for both games. See [](retooled.md).
 ````
 
 ## Items
@@ -153,21 +181,21 @@ Where to link players to update your mod. Corresponds with the `DOWNLOAD` value 
 
 ```{confval} KSP_Version
 ---
-default: `1.12`
+default: `1.12`, or the game's version in Retooled
 ---
 The KSP version the mod is targeting. Corresponds with the `KSP_VERSION` value in json.
 ```
 
 ```{confval} KSP_Version_Min
 ---
-default: `1.8`
+default: `1.8`, or the game's version when only building for Retooled
 ---
 The minimum supported KSP version. Corresponds with the `KSP_VERSION_MIN` value in json.
 ```
 
 ```{confval} KSP_Version_Max
 ---
-default: `1.12`
+default: `1.12`, or the game's version in Retooled
 ---
 The maximum supported KSP version. Corresponds with the `KSP_VERSION_MAX` value in json.
 ```

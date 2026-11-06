@@ -1,6 +1,6 @@
 # Generating Version Files
 
-KSPBuildTools can generate .version files for use with KSP-AVC and CKAN
+KSP1Retooled.BuildTools can generate .version files for use with KSP-AVC and CKAN
 
 To use, add the following to your csproj, filling in the URLs and paths for your own mod:
 

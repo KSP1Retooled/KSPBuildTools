@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace KSPBuildTools {
+namespace KSP1Retooled.BuildTools {
     public class AssetBundleBuilder {
         public static void BuildBundles() {
             string[] args = Environment.GetCommandLineArgs();

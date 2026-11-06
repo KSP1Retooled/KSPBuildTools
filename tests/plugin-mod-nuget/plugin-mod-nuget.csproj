@@ -2,13 +2,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <KSPBuildToolsVersion Condition = " '$(KSPBuildToolsVersion)' == ''">*-*</KSPBuildToolsVersion>
+    <KSP1RetooledBuildToolsVersion Condition = " '$(KSP1RetooledBuildToolsVersion)' == ''">*-*</KSP1RetooledBuildToolsVersion>
     <RootNamespace>plugin-mod</RootNamespace>
     <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="KSPBuildTools" Version="$(KSPBuildToolsVersion)" />
+    <PackageReference Include="KSP1Retooled.BuildTools" Version="$(KSP1RetooledBuildToolsVersion)" />
     <PackageReference Include="MinVer" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

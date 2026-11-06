@@ -36,7 +36,7 @@ runs:
     - name: checkout kspbuildtools
       uses: actions/checkout@v4
       with:
-        repository: KSPModdingLibs/KSPBuildTools
+        repository: KSP1Retooled/KSPBuildTools
         path: ${{inputs.ksp-build-tools-root}}
         sparse-checkout: update-version.sh
         sparse-checkout-cone-mode: false

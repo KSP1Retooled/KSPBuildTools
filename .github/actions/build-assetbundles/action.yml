@@ -22,7 +22,7 @@ inputs:
 
   build-method:
     description: Method to call to build the assetbundles. Uses a builtin build script with sensible values by default
-    default: 'KSPBuildTools.AssetBundleBuilder.BuildBundles'
+    default: 'KSP1Retooled.BuildTools.AssetBundleBuilder.BuildBundles'
 
 x-env:
   UNITY_LICENSE:
@@ -66,11 +66,11 @@ runs:
         mkdir -p ${{ inputs.output-dir }}
 
     - name: Copy Editor Tools Into Project
-      if: startsWith(inputs.build-method, 'KSPBuildTools')
+      if: startsWith(inputs.build-method, 'KSP1Retooled.BuildTools')
       shell: bash
       run: |
-        mkdir -p ${{ env.PROJECT_DIR }}/Assets/KSPBuildTools/Editor
-        cp ${{ github.action_path }}/AssetBundleBuilder.cs ${{ env.PROJECT_DIR }}/Assets/KSPBuildTools/Editor/
+        mkdir -p ${{ env.PROJECT_DIR }}/Assets/KSP1Retooled.BuildTools/Editor
+        cp ${{ github.action_path }}/AssetBundleBuilder.cs ${{ env.PROJECT_DIR }}/Assets/KSP1Retooled.BuildTools/Editor/
 
     - name: Cache Assetbundles
       id: cache-assetbundles

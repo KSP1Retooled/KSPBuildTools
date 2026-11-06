@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  The assemblies mods compile against, by name. Assemblies missing from the game's managed folder are skipped.
+
+  In Retooled, Unity.TextMeshPro and UnityEngine.VRModule stay off these lists: both define types that are also in
+  Assembly-CSharp and UnityEngine.XRModule, which is a compile error for any mod that uses them.
+  -->
+
+  <!-- Both games -->
+  <ItemGroup>
+    <_KSPBT_GameAssembly Include="Assembly-CSharp"/>
+    <_KSPBT_GameAssembly Include="Assembly-CSharp-firstpass"/>
+    <_KSPBT_GameAssembly Include="KSPAssets"/>
+    <_KSPBT_GameAssembly Include="KSPTrackIR"/>
+
+    <_KSPBT_UnityAssembly Include="UnityEngine"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AccessibilityModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AIModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AndroidJNIModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AnimationModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AssetBundleModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AudioModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ClothModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ClusterInputModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ClusterRendererModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.CoreModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.CrashReportingModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.DirectorModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.GameCenterModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.GridModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ImageConversionModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.IMGUIModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.InputLegacyModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.JSONSerializeModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.LocalizationModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ParticleSystemModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.PerformanceReportingModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.Physics2DModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.PhysicsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ScreenCaptureModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.SpriteMaskModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.SpriteShapeModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.StreamingModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.SubsystemsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.TerrainModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.TerrainPhysicsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.TextRenderingModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.TilemapModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UI"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UIElementsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UIModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityAnalyticsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityWebRequestAssetBundleModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityWebRequestAudioModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityWebRequestModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityWebRequestTextureModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityWebRequestWWWModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.VehiclesModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.VFXModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.VideoModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.WindModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.XRModule"/>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(KSPBT_TargetGame)' == 'KSP1' ">
+    <_KSPBT_UnityAssembly Include="Unity.Analytics.DataPrivacy"/>
+    <_KSPBT_UnityAssembly Include="Unity.Analytics.StandardEvents"/>
+    <_KSPBT_UnityAssembly Include="Unity.Analytics.Tracker"/>
+    <_KSPBT_UnityAssembly Include="Unity.RenderPipelines.Core.Runtime"/>
+    <_KSPBT_UnityAssembly Include="Unity.Timeline"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ARModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.SubstanceModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.TextCoreModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UNETModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.VRModule"/>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">
+    <_KSPBT_GameAssembly Include="MultipleModuleInPartAPI"/>
+
+    <_KSPBT_UnityAssembly Include="Unity.Burst"/>
+    <_KSPBT_UnityAssembly Include="Unity.Collections"/>
+    <_KSPBT_UnityAssembly Include="Unity.Deformations"/>
+    <_KSPBT_UnityAssembly Include="Unity.Entities"/>
+    <_KSPBT_UnityAssembly Include="Unity.Entities.Hybrid"/>
+    <_KSPBT_UnityAssembly Include="Unity.Entities.Hybrid.HybridComponents"/>
+    <_KSPBT_UnityAssembly Include="Unity.Entities.UI"/>
+    <_KSPBT_UnityAssembly Include="Unity.InternalAPIEngineBridge.004"/>
+    <_KSPBT_UnityAssembly Include="Unity.Mathematics"/>
+    <_KSPBT_UnityAssembly Include="Unity.Mathematics.Extensions"/>
+    <_KSPBT_UnityAssembly Include="Unity.Mathematics.Extensions.Hybrid"/>
+    <_KSPBT_UnityAssembly Include="Unity.Profiling.Core"/>
+    <_KSPBT_UnityAssembly Include="Unity.Scenes"/>
+    <_KSPBT_UnityAssembly Include="Unity.ScriptableBuildPipeline"/>
+    <_KSPBT_UnityAssembly Include="Unity.Scripting"/>
+    <_KSPBT_UnityAssembly Include="Unity.Transforms"/>
+    <_KSPBT_UnityAssembly Include="Unity.Transforms.Hybrid"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AdaptivePerformanceModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.AMDModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.BurstModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ContentLoadModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.HierarchyCoreModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.HierarchyModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.IdentifiersModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.InsightsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.LocalizationRuntimeModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ManagedKernelModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.MathematicsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.MultiplayerModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.NVIDIAModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.PhysicsCore2DModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.PropertiesModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.ScriptingModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.SmartStringsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.TextCoreFontEngineModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.TextCoreTextEngineModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UICommonModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityAnalyticsCommonModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.UnityConsentModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.VectorGraphicsModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.VirtualTexturingModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.WindowingModule"/>
+    <_KSPBT_UnityAssembly Include="UnityEngine.WindowsWindowingModule"/>
+  </ItemGroup>
+</Project>

@@ -1,6 +1,6 @@
 # MSBuild Reference
 
-KSPBuildTools provides msbuild properties and targets for developing KSP plugins.
+KSP1Retooled.BuildTools provides msbuild properties and targets for developing KSP plugins.
 
 What it does:
 
@@ -13,6 +13,7 @@ What it does:
 - Includes a target for installing dependencies with CKAN
 - Designed to be used by the [Build github workflow](https://kspbuildtools.readthedocs.io/en/docs/actions/index.html)
 - Includes support for version stamping
+- Detects whether you are building for KSP 1 or KSP Retooled, and can build for both at once
 
 ```{toctree}
 ---
@@ -24,6 +25,7 @@ getting-started
 ksp-install
 dependencies
 generating-version-files
+retooled
 configuration
 ```
 

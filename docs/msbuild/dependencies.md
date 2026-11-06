@@ -1,6 +1,6 @@
 # Using Dependencies
 
-KSPBuildTools can help manage other mods that you depend on
+KSP1Retooled.BuildTools can help manage other mods that you depend on
 
 ## Referencing Dependency DLLs
 
@@ -20,7 +20,7 @@ Mod DLLs should be referenced with the {confval}`ModReference` item, like so.
 
 ## Installing Dependencies Automatically
 
-KSPBuildTools can install CKAN mods automatically when built. This is useful for CI workflows such as those using the {gha:action}`compile` action, or to make it easier for others to compile your mod themselves. Either add the `<CKANIdentifier>` metadata to your `<ModReference>` items, or if the dependency mod doesn't have a dll you need to reference you can use the `<CKANDependency>` item.
+KSP1Retooled.BuildTools can install CKAN mods automatically when built. This is useful for CI workflows such as those using the {gha:action}`compile` action, or to make it easier for others to compile your mod themselves. Either add the `<CKANIdentifier>` metadata to your `<ModReference>` items, or if the dependency mod doesn't have a dll you need to reference you can use the `<CKANDependency>` item.
 
 ```xml
 <ItemGroup>
@@ -57,7 +57,7 @@ KSP mods should mark their dependency DLLs using the `KSPAssemblyDependency` att
 
 `[assembly: KSPAssemblyDependency("0Harmony", 0, 0, 0)]`{l=csharp}
 
-If the {confval}`KSPBT_GenerateDependencyAttributes` property is set to `true` (the default), KSPBuildTools will generate these attributes automatically.
+If the {confval}`KSPBT_GenerateDependencyAttributes` property is set to `true` (the default), KSP1Retooled.BuildTools will generate these attributes automatically.
 
 The assembly name is taken from the value of the item.
 

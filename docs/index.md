@@ -1,6 +1,6 @@
-# KSP Build Tools
+# KSP1Retooled Build Tools
 
-KSP Build Tools provide a common set of tools for developing mods for Kerbal Space Program. It integrates with MSBuild to simplify setting up plugins, and integrates with CKAN to easily reference other mods. it also includes a set of CI actions for automating builds.
+KSP1Retooled.BuildTools provides a common set of tools for developing mods for Kerbal Space Program and KSP Retooled. It integrates with MSBuild to simplify setting up plugins, and integrates with CKAN to easily reference other mods. it also includes a set of CI actions for automating builds.
 
 ```{toctree}
 ---
@@ -18,7 +18,7 @@ migration
 ---
 maxdepth: 1
 ---
-Source <https://github.com/KSPModdingLibs/KSPBuildTools>
+Source <https://github.com/KSP1Retooled/KSPBuildTools>
 Changelog <changelog>
 License <license>
 ```

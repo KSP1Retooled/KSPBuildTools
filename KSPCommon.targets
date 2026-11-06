@@ -8,6 +8,28 @@
     <KSPBT_GameRootSource Condition="'$(KSPBT_GameRoot)' != ''">property</KSPBT_GameRootSource>
   </PropertyGroup>
 
+  <!--
+  Setting both of these opts in to building for KSP1 and for Retooled at once. Without them the project is
+  built for whichever game is found below. A build with KSPBT_TargetGame already set is only for that game, and
+  uses its root if it has one.
+  -->
+  <PropertyGroup Condition=" '$(KSPBT_TargetGame)' == '' And '$(Configuration)' != 'Unity' And '$(KSPBT_KSP1GameRoot)$(KSPBT_RetooledGameRoot)' != '' And ('$(KSPBT_KSP1GameRoot)' == '' Or '$(KSPBT_RetooledGameRoot)' == '') ">
+    <_KSPBT_OnlyOneGameRoot>true</_KSPBT_OnlyOneGameRoot>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(KSPBT_KSP1GameRoot)' != '' And '$(KSPBT_RetooledGameRoot)' != '' And '$(Configuration)' != 'Unity' ">
+    <_KSPBT_MultiGame>true</_KSPBT_MultiGame>
+    <_KSPBT_BuildRetooledVariant Condition=" '$(KSPBT_TargetGame)' == '' ">true</_KSPBT_BuildRetooledVariant>
+    <KSPBT_TargetGame Condition=" '$(KSPBT_TargetGame)' == '' ">KSP1</KSPBT_TargetGame>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(KSPBT_TargetGame)' == 'KSP1' And '$(KSPBT_KSP1GameRoot)' != '' ">
+    <KSPBT_GameRoot>$(KSPBT_KSP1GameRoot)</KSPBT_GameRoot>
+    <KSPBT_GameRootSource>KSPBT_KSP1GameRoot</KSPBT_GameRootSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(KSPBT_TargetGame)' == 'Retooled' And '$(KSPBT_RetooledGameRoot)' != '' ">
+    <KSPBT_GameRoot>$(KSPBT_RetooledGameRoot)</KSPBT_GameRoot>
+    <KSPBT_GameRootSource>KSPBT_RetooledGameRoot</KSPBT_GameRootSource>
+  </PropertyGroup>
+
   <!-- Default KSPBT_GameRoot to the "KSP_ROOT" environment variable if it exists -->
   <!-- Doing this skips any checks for a valid KSP install so be careful! -->
   <PropertyGroup Condition=" '$(KSPBT_GameRoot)' == '' And '$(KSP_ROOT)' != '' ">
@@ -50,7 +72,44 @@
   <!-- Calculate KSPBT_ManagedPath -->
   <PropertyGroup Condition=" '$(KSPBT_ManagedPath)' == ''">
     <KSPBT_ManagedPath>$(KSPBT_GameRoot)/$(_KSPBT_ManagedRelativePath)</KSPBT_ManagedPath>
+    <KSPBT_ManagedPath Condition=" !Exists('$(KSPBT_ManagedPath)/Assembly-CSharp.dll') And Exists('$(KSPBT_GameRoot)/$(_KSPBT_WindowsManagedRelativePath)/Assembly-CSharp.dll') ">$(KSPBT_GameRoot)/$(_KSPBT_WindowsManagedRelativePath)</KSPBT_ManagedPath>
   </PropertyGroup>
+
+  <!-- Work out which game we are building against, and its version -->
+  <PropertyGroup>
+    <_KSPBT_DetectedGame>KSP1</_KSPBT_DetectedGame>
+    <_KSPBT_DetectedGame Condition=" Exists('$(KSPBT_ManagedPath)/$(_KSPBT_RetooledIdentifier)') ">Retooled</_KSPBT_DetectedGame>
+    <KSPBT_TargetGame Condition=" '$(KSPBT_TargetGame)' == '' ">$(_KSPBT_DetectedGame)</KSPBT_TargetGame>
+    <_KSPBT_Readme>$(KSPBT_GameRoot)/readme.txt</_KSPBT_Readme>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(KSPBT_GameVersion)' == '' And Exists('$(_KSPBT_Readme)') ">
+    <KSPBT_GameVersion>$([System.Text.RegularExpressions.Regex]::Match($([System.IO.File]::ReadAllText('$(_KSPBT_Readme)')), '(?m)^Version (\d+\.\d+\.\d+)').Groups[1].Value)</KSPBT_GameVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <KSPBT_GameVersion Condition=" '$(KSPBT_GameVersion)' == '' And '$(KSPBT_TargetGame)' == 'Retooled' ">$(_KSPBT_DefaultRetooledVersion)</KSPBT_GameVersion>
+    <KSPBT_GameVersion Condition=" '$(KSPBT_GameVersion)' == '' ">$(_KSPBT_DefaultKSP1Version)</KSPBT_GameVersion>
+    <_KSPBT_GameVersionMajor>$(KSPBT_GameVersion.Split('.')[0])</_KSPBT_GameVersionMajor>
+    <_KSPBT_GameVersionMinor>$(KSPBT_GameVersion.Split('.')[1])</_KSPBT_GameVersionMinor>
+    <_KSPBT_GameVersionShort>$(_KSPBT_GameVersionMajor).$(_KSPBT_GameVersionMinor)</_KSPBT_GameVersionShort>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">
+    <DefineConstants>$(DefineConstants);KSP_RETOOLED;UNITY_6_7</DefineConstants>
+  </PropertyGroup>
+
+  <!-- When building both games, the Retooled DLL sits beside the KSP1 one so it has to have another file name -->
+  <PropertyGroup Condition=" '$(_KSPBT_MultiGame)' == 'true' And '$(KSPBT_TargetGame)' == 'Retooled' ">
+    <_KSPBT_IsRetooledVariant>true</_KSPBT_IsRetooledVariant>
+  </PropertyGroup>
+
+  <!-- Version files default to the game being built. Metadata set on the item itself still wins. -->
+  <ItemDefinitionGroup Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">
+    <KSPVersionFile>
+      <KSP_Version>$(_KSPBT_GameVersionShort)</KSP_Version>
+      <KSP_Version_Min Condition=" '$(_KSPBT_IsRetooledVariant)' != 'true' ">$(_KSPBT_GameVersionShort)</KSP_Version_Min>
+      <KSP_Version_Max>$(_KSPBT_GameVersionShort)</KSP_Version_Max>
+    </KSPVersionFile>
+  </ItemDefinitionGroup>
 
   <!-- Prevent the compiler from acquiring or referencing any external reference assemblies -->
   <PropertyGroup Condition=" '$(KSPBT_ReferenceSystemAssemblies)' == 'true' ">
@@ -66,6 +125,9 @@
     <_FullFrameworkReferenceAssemblyPaths>$(KSPBT_ManagedPath)</_FullFrameworkReferenceAssemblyPaths>
     <_TargetFrameworkDirectories>$(KSPBT_ManagedPath)</_TargetFrameworkDirectories>
   </PropertyGroup>
+
+  <!-- The assemblies to reference for the game being built -->
+  <Import Project="$(MSBuildThisFileDirectory)KSPAssemblies.targets"/>
 
   <!-- Import references -->
   <ItemGroup Condition=" '$(KSPBT_ReferenceSystemAssemblies)' == 'true' ">
@@ -85,37 +147,61 @@
       <Name>System.Xml (KSP/Mono)</Name>
       <Private>False</Private>
     </Reference>
+    <!-- Unity 6 assemblies are built against netstandard -->
+    <Reference Include="$(KSPBT_ManagedPath)/netstandard.dll" Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">
+      <Name>netstandard (KSP/Mono)</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(KSPBT_ReferenceUnityAssemblies)' == 'true' ">
-    <Reference Include="$(KSPBT_ManagedPath)/UnityEngine*.dll">
-      <Name>UnityEngine</Name>
+    <Reference Include="@(_KSPBT_UnityAssembly->'$(KSPBT_ManagedPath)/%(Identity).dll'->Exists())">
+      <Name>Unity</Name>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(KSPBT_ReferenceGameAssemblies)' == 'true'">
-    <Reference Include="$(KSPBT_ManagedPath)/Assembly-CSharp.dll">
-      <Name>Assembly-CSharp</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="$(KSPBT_ManagedPath)/Assembly-CSharp-firstpass.dll">
-      <Name>Assembly-CSharp-firstpass</Name>
+    <Reference Include="@(_KSPBT_GameAssembly->'$(KSPBT_ManagedPath)/%(Identity).dll'->Exists())">
+      <Name>KSP</Name>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
 
   <!--Custom Targets-->
   <Target Name="KSPBT_CheckForGameRoot" BeforeTargets="ResolveReferences">
-    <Error Text="KSPBuildTools was unable to find a KSP installation. Please set the ReferencePath or KSPBT_GameRoot property
+    <Error Text="KSP1Retooled.BuildTools was unable to find a KSP installation. Please set the ReferencePath or KSPBT_GameRoot property
                  in your csproj.user file to a valid KSP installation directory (the one with GameData in it)
 
                  See https://kspbuildtools.readthedocs.io/en/latest/msbuild/ksp-install.html for more information"
            Condition="'$(KSPBT_GameRoot)' == ''"/>
+    <Error Text="KSPBT_TargetGame must be KSP1 or Retooled, but is '$(KSPBT_TargetGame)'"
+           Condition=" '$(KSPBT_TargetGame)' != 'KSP1' And '$(KSPBT_TargetGame)' != 'Retooled' "/>
+    <Error Text="Building for both KSP1 and Retooled needs KSPBT_KSP1GameRoot and KSPBT_RetooledGameRoot, but only one of them is set"
+           Condition=" '$(_KSPBT_OnlyOneGameRoot)' == 'true' "/>
+    <Error Text="Expected $(KSPBT_TargetGame) but the assemblies in $(KSPBT_ManagedPath) are from $(_KSPBT_DetectedGame)"
+           Condition=" '$(KSPBT_TargetGame)' != '$(_KSPBT_DetectedGame)' "/>
+    <Error Text="Building for both KSP1 and Retooled needs KSPCommon.props to be imported before the project's output paths are calculated. Use an SDK-style project, or import KSPCommon.targets before Microsoft.CSharp.targets."
+           Condition=" '$(_KSPBT_IsRetooledVariant)' == 'true' And !$(IntermediateOutputPath.Contains('retooled')) "/>
     <ItemGroup>
       <_GameRootMessage Include="KSPBT_GameRoot Candidates:"/>
       <_GameRootMessage Include="Candidate: %(KSPBT_GameRootCandidate.source) from %(KSPBT_GameRootCandidate.identity)"/>
       <_GameRootMessage Include="Chosen KSPBT_GameRoot: $(KSPBT_GameRoot) in $(KSPBT_GameRootSource)" Condition="'$(KSPBT_GameRoot)' != ''"/>
+      <_GameRootMessage Include="Building for $(KSPBT_TargetGame) $(KSPBT_GameVersion)"/>
     </ItemGroup>
     <Message Text="@(_GameRootMessage, '%0a')" Importance="normal"/>
+  </Target>
+
+  <!--
+  Build and clean the Retooled DLL after the KSP1 one. KSPBT_TargetGame is the only thing this passes down: as a
+  global property it also reaches project references, so that they get built for the same game. The paths are
+  dropped so a value given to the outer build for KSP1, like the compile action does, doesn't leak in.
+  -->
+  <Target Name="KSPBT_BuildRetooledVariant" AfterTargets="Build" Condition=" '$(_KSPBT_BuildRetooledVariant)' == 'true' ">
+    <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Build" Properties="KSPBT_TargetGame=Retooled"
+             RemoveProperties="KSPBT_GameRoot;KSPBT_ManagedPath"/>
+  </Target>
+  <Target Name="KSPBT_CleanRetooledVariant" AfterTargets="Clean" Condition=" '$(_KSPBT_BuildRetooledVariant)' == 'true' ">
+    <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Clean" Properties="KSPBT_TargetGame=Retooled"
+             RemoveProperties="KSPBT_GameRoot;KSPBT_ManagedPath"/>
   </Target>
 
   <!--
@@ -141,7 +227,8 @@
 
   <!-- Generate script to run to install CKAN dependencies -->
   <PropertyGroup>
-    <_CKANScript>$(BaseIntermediateOutputPath)ckancommands.cache</_CKANScript>
+    <!-- Per game, since the commands name the game directory and rewriting this file reruns CKAN -->
+    <_CKANScript>$(BaseIntermediateOutputPath)ckancommands.$(KSPBT_TargetGame).cache</_CKANScript>
   </PropertyGroup>
   <Target Name="KSPBT_GenerateCKANScript" DependsOnTargets="$(KSPBT_GenerateCKANScriptDependsOn)">
     <ItemGroup>
@@ -230,6 +317,15 @@
         <_Parameter4 Condition="%(Reference.KSPAssemblyVersionElementCount) &gt; 2">$([System.String]::Copy('%(Reference.KSPAssemblyVersion)').Split('.')[2])</_Parameter4>
         <_Parameter4_TypeName Condition="%(Reference.KSPAssemblyVersionElementCount) &gt; 2">System.Int32</_Parameter4_TypeName>
       </AssemblyAttribute>
+      <!-- Keeps a Retooled DLL from loading in stock KSP, and makes it the variant that wins in Retooled -->
+      <AssemblyAttribute Include="KSPAssemblyDependency" Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">
+        <_Parameter1>KSP</_Parameter1>
+        <_Parameter1_TypeName>System.String</_Parameter1_TypeName>
+        <_Parameter2>$(_KSPBT_GameVersionMajor)</_Parameter2>
+        <_Parameter2_TypeName>System.Int32</_Parameter2_TypeName>
+        <_Parameter3>$(_KSPBT_GameVersionMinor)</_Parameter3>
+        <_Parameter3_TypeName>System.Int32</_Parameter3_TypeName>
+      </AssemblyAttribute>
       <AssemblyAttribute Include="KSPAssemblyDependency" Condition="'%(ProjectReference.KSPAssemblyName)' != ''">
         <_Parameter1>%(ProjectReference.KSPAssemblyName)</_Parameter1>
         <_Parameter1_TypeName>System.String</_Parameter1_TypeName>
@@ -245,9 +341,10 @@
 
 
   <!-- Target to generate the KSP version json file for AVC/CKAN etc-->
+  <!-- When building both games this is left to the Retooled build, which knows the newest version the mod supports -->
   <Target Name="KSPBT_GenerateVersionFile" AfterTargets="Build"
           Inputs="@(KSPVersionFile);$(FileVersion)" Outputs="%(KSPVersionFile.destination)"
-          Condition=" '$(KSPBT_GenerateVersionFile)' == 'true' ">
+          Condition=" '$(KSPBT_GenerateVersionFile)' == 'true' And '$(_KSPBT_BuildRetooledVariant)' != 'true' ">
     <ItemGroup>
       <KSPVersionFile Update="@(KSPVersionFile)">
         <Name Condition="'%(KSPVersionFile.Name)' == ''">$(ProjectName)</Name>
@@ -291,11 +388,22 @@
   <!-- Copy DLLs to mod GameData folder-->
   <Target Name="KSPBT_CopyDLLsToPluginFolder" AfterTargets="CopyFilesToOutputDirectory"
           Condition=" '$(KSPBT_CopyDLLsToPluginFolder)' == 'true'">
-    <ItemGroup>
+    <ItemGroup Condition=" '$(_KSPBT_IsRetooledVariant)' != 'true' ">
       <_BinariesToCopy Include="$(TargetDir)/**/*.dll"/>
       <_BinariesToCopy Include="$(TargetDir)/**/*.pdb" Condition="'$(Configuration)' == 'Debug'"/>
     </ItemGroup>
     <MakeDir Directories="$(KSPBT_ModRoot)/$(KSPBT_ModPluginFolder)"/>
     <Copy SourceFiles="@(_BinariesToCopy)" DestinationFolder="$(KSPBT_ModRoot)/$(KSPBT_ModPluginFolder)/%(RecursiveDir)"/>
+
+    <!--
+    Only the file is renamed, the assembly has to keep its name for Retooled to treat them as variants of one
+    plugin. Everything else in the output folder has the same name as what the KSP1 build copied, so is left out.
+    -->
+    <ItemGroup Condition=" '$(_KSPBT_IsRetooledVariant)' == 'true' ">
+      <_VariantBinaries Include="$(TargetPath)"/>
+      <_VariantBinaries Include="$(TargetDir)$(TargetName).pdb" Condition="'$(Configuration)' == 'Debug'"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(_VariantBinaries)"
+          DestinationFiles="@(_VariantBinaries->'$(KSPBT_ModRoot)/$(KSPBT_ModPluginFolder)/$(TargetName).$(_KSPBT_GameVersionShort)%(Extension)')"/>
   </Target>
 </Project>

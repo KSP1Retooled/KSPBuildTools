@@ -8,7 +8,7 @@ from pathlib import Path
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "KSP Build Tools"
+project = "KSP1Retooled Build Tools"
 copyright = "2025, KSPModdingLibs Contributors"
 author = "KSPModdingLibs Contributors"
 
@@ -34,7 +34,7 @@ myst_enable_extensions = ["attrs_inline"]
 # -- Options for sphinx-gha --------------------------------------------------
 
 sphinx_gha_repo_root = str(Path(__file__).parent.parent.absolute())  # docs/..
-sphinx_gha_repo_slug = "KSPModdingLibs/KSPBuildTools"
+sphinx_gha_repo_slug = "KSP1Retooled/KSPBuildTools"
 
 # -- Detect version ----------------------------------------------------------
 

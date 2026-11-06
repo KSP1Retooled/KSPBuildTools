@@ -21,22 +21,22 @@ jobs:
           submodules: true
 
       # Install CKAN and set up an instance. If CKAN is not needed, remove this step
-      - uses: KSPModdingLibs/KSPBuildTools/.github/actions/setup-ckan@main
+      - uses: KSP1Retooled/KSPBuildTools/.github/actions/setup-ckan@main
 
       # Install any CKAN dependencies not in the msbuild file. If there are none, remove this step
-      - uses: KSPModdingLibs/KSPBuildTools/.github/actions/install-dependencies@main
+      - uses: KSP1Retooled/KSPBuildTools/.github/actions/install-dependencies@main
         with:
           # Any additional CKAN identifiers not listed in the csproj can be listed here. space-separated
           dependency-identifiers: ""
 
       # Compile the mod. 
-      - uses: KSPModdingLibs/KSPBuildTools/.github/actions/compile@main
+      - uses: KSP1Retooled/KSPBuildTools/.github/actions/compile@main
         with:
           ksp-zip-url: https://github.com/KSPModdingLibs/KSPLibs/raw/main/KSP-1.12.5.zip
           ksp-zip-password: ${{ secrets.ksp-zip-password }}
 
       # Assemble the mod into a release package and upload it as an artifact
-      - uses: KSPModdingLibs/KSPBuildTools/.github/actions/assemble-release@main
+      - uses: KSP1Retooled/KSPBuildTools/.github/actions/assemble-release@main
         with:
           artifacts: "GameData LICENSE* README* CHANGELOG*"
-          output-file-name: ${{ github.event.repository.name }}-${{ inputs.build-configuration }}
+          output-file-name: ${{ github.event.repository.name }}-${{ inputs.build-configuration }}

@@ -1,4 +1,4 @@
-# This is an internal test for KSPBuildTools and not intended to be used by other projects
+# This is an internal test for KSP1Retooled.BuildTools and not intended to be used by other projects
 name: Test Plugin Mod
 
 on:

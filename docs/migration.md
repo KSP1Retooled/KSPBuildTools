@@ -1,4 +1,15 @@
 # Migration Guide
+
+## Migrating from KSPBuildTools
+
+KSP1Retooled.BuildTools is a fork of [KSPBuildTools](https://github.com/KSPModdingLibs/KSPBuildTools). MSBuild properties keep their `KSPBT_` prefix, so most mods only need to change where the package comes from:
+
+- Replace the `KSPBuildTools` package reference with `KSP1Retooled.BuildTools`
+- Replace `KSPModdingLibs/KSPBuildTools` with `KSP1Retooled/KSPBuildTools` in any workflows
+- If you set the `build-assetbundles` action's `build-method` to the default explicitly, it is now `KSP1Retooled.BuildTools.AssetBundleBuilder.BuildBundles`
+
+## Migrating from before 1.0.0
+
 If you are migrating a mod from a <1.0.0 version KSP Build Tools, follow the instructions below
 
 ## MSBuild Properties

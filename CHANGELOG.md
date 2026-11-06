@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file
 
+## Unreleased
+
+### General
+
+- Renamed to KSP1Retooled.BuildTools. MSBuild properties keep their `KSPBT_` prefix
+
+### Msbuild
+
+- Added support for building mods for KSP Retooled, which is detected from the KSP install
+- Added `KSP_RETOOLED` and `UNITY_6_7` symbols when building for Retooled
+- Added the `KSPBT_KSP1GameRoot` and `KSPBT_RetooledGameRoot` properties for building for both games at once
+- Added the `KSPBT_TargetGame` and `KSPBT_GameVersion` properties
+- Assemblies are now found in the Windows layout on any platform, if the current platform's layout doesn't exist
+- Unity and KSP assemblies are now referenced from the lists in `KSPAssemblies.targets`, which adds `KSPAssets`, `KSPTrackIR` and the `Unity.*` assemblies
+
 ## 1.1.1 - 2025-12-01
 
 ### Msbuild

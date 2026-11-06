@@ -1,4 +1,4 @@
-# This is an internal workflow for KSPBuildTools and not intended to be used by other projects
+# This is an internal workflow for KSP1Retooled.BuildTools and not intended to be used by other projects
 
 name: CI
 
@@ -30,7 +30,7 @@ jobs:
       - name: Check for workflows with outdated action pins
         if: startsWith(github.ref, 'refs/tags')
         run: |
-          ! grep -P -i 'uses: KSPModdingLibs/KSPBuildTools/\.github/actions/.*@(?!${{ github.ref_name }}$)' .github/workflows/*.yml
+          ! grep -P -i 'uses: KSP1Retooled/KSPBuildTools/\.github/actions/.*@(?!${{ github.ref_name }}$)' .github/workflows/*.yml
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -45,10 +45,10 @@ jobs:
           echo "version=$(minver -v e)" >> "$GITHUB_OUTPUT"
 
       - name: Build
-        run: dotnet build KSPBuildTools.csproj
+        run: dotnet build KSP1Retooled.BuildTools.csproj
 
       - name: Package
-        run: dotnet pack KSPBuildTools.csproj --configuration Release --output ${{ env.NuGetDirectory }}
+        run: dotnet pack KSP1Retooled.BuildTools.csproj --configuration Release --output ${{ env.NuGetDirectory }}
 
       - uses: actions/upload-artifact@v4
         with:
@@ -78,7 +78,7 @@ jobs:
     needs: [ build, test-plugin, test-plugin-nuget, test-plugin-legacy, test-assetbundle ]
     environment:
       name: "NuGet"
-      url: "https://www.nuget.org/packages/KSPBuildTools"
+      url: "https://www.nuget.org/packages/KSP1Retooled.BuildTools"
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     steps:
       - uses: actions/checkout@v4

@@ -1,8 +1,8 @@
 {
-    "name": "KSPBuildTools Build Workflow",
+    "name": "KSP1Retooled.BuildTools Build Workflow",
     "description": "Builds and packages a KSP mod",
     "categories": [
         "ci",
         "C#"
     ]
-}
+}
