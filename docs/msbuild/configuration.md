@@ -100,7 +100,14 @@ The game being built for, either `Stock` or `Retooled`. Set this on the command 
 ---
 default: read from `readme.txt` in the KSP install, otherwise `1.12.5` for stock KSP and `1.13.0` for Retooled
 ---
-The version of the game being built for. For Retooled this decides the `KSPAssemblyDependency` on KSP, and the file name of the Retooled DLL when building for both games.
+The version of the game being built for. For Retooled this decides the `KSPAssemblyDependency` on KSP, and the default for {confval}`KSPBT_RetooledFileSuffix`.
+```
+
+```{confval} KSPBT_RetooledFileSuffix
+---
+default: `.Retooled.` followed by the major and minor game version, such as `.Retooled.1.13`
+---
+Added to the file name of the Retooled DLL when building for both games, so that it can sit beside the stock one. See [](retooled.md).
 ```
 
 ````{confval} KSPBT_StockGameRoot

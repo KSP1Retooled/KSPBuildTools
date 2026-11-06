@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file
 
+## Unreleased
+
+### Msbuild
+
+- When building for both games, the Retooled DLL is now named
+  `MyMod.Retooled.1.13.dll` instead of `MyMod.1.13.dll`. Delete any old
+  `MyMod.1.13.dll` from your mod's plugin folder
+- Added the `KSPBT_RetooledFileSuffix` property to set this suffix
+
 ## 2.0.0 - 2026-11-06
 
 ### General

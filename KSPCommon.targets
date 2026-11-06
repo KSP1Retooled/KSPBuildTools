@@ -100,6 +100,7 @@
   <!-- When building both games, the Retooled DLL sits beside the stock one so it has to have another file name -->
   <PropertyGroup Condition=" '$(_KSPBT_MultiGame)' == 'true' And '$(KSPBT_TargetGame)' == 'Retooled' ">
     <_KSPBT_IsRetooledVariant>true</_KSPBT_IsRetooledVariant>
+    <KSPBT_RetooledFileSuffix Condition=" '$(KSPBT_RetooledFileSuffix)' == '' ">.Retooled.$(_KSPBT_GameVersionShort)</KSPBT_RetooledFileSuffix>
   </PropertyGroup>
 
   <!-- Version files default to the game being built. Metadata set on the item itself still wins. -->
@@ -404,6 +405,6 @@
       <_VariantBinaries Include="$(TargetDir)$(TargetName).pdb" Condition="'$(Configuration)' == 'Debug'"/>
     </ItemGroup>
     <Copy SourceFiles="@(_VariantBinaries)"
-          DestinationFiles="@(_VariantBinaries->'$(KSPBT_ModRoot)/$(KSPBT_ModPluginFolder)/$(TargetName).$(_KSPBT_GameVersionShort)%(Extension)')"/>
+          DestinationFiles="@(_VariantBinaries->'$(KSPBT_ModRoot)/$(KSPBT_ModPluginFolder)/$(TargetName)$(KSPBT_RetooledFileSuffix)%(Extension)')"/>
   </Target>
 </Project>
