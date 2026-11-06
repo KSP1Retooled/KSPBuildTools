@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file
 
-## Unreleased
+## 2.0.1 - 2026-11-06
 
 ### Msbuild
 
@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file
   `MyMod.Retooled.1.13.dll` instead of `MyMod.1.13.dll`. Delete any old
   `MyMod.1.13.dll` from your mod's plugin folder
 - Added the `KSPBT_RetooledFileSuffix` property to set this suffix
+
 
 ## 2.0.0 - 2026-11-06
 
@@ -30,6 +31,7 @@ All notable changes to this project will be documented in this file
 - Unity and KSP assemblies are now referenced from the lists in
   `KSPAssemblies.targets`, which adds `KSPAssets`, `KSPTrackIR` and the `Unity.*`
   assemblies
+
 
 ## 1.1.1 - 2025-12-01
 
