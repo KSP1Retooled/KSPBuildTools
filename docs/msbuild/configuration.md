@@ -93,7 +93,7 @@ This property should be set to the root directory of your KSP install. see [Loca
 ---
 default: detected from the KSP install
 ---
-The game being built for, either `KSP1` or `Retooled`. Set this on the command line to build for only one game when {confval}`KSPBT_KSP1GameRoot` and {confval}`KSPBT_RetooledGameRoot` are set. The build fails if the assemblies it finds are from the other game.
+The game being built for, either `Stock` or `Retooled`. Set this on the command line to build for only one game when {confval}`KSPBT_StockGameRoot` and {confval}`KSPBT_RetooledGameRoot` are set. The build fails if the assemblies it finds are from the other game.
 ```
 
 ```{confval} KSPBT_GameVersion
@@ -103,7 +103,7 @@ default: read from `readme.txt` in the KSP install, otherwise `1.12.5` for KSP 1
 The version of the game being built for. For Retooled this decides the `KSPAssemblyDependency` on KSP, and the file name of the Retooled DLL when building for both games.
 ```
 
-````{confval} KSPBT_KSP1GameRoot
+````{confval} KSPBT_StockGameRoot
 ```{warning}
 You should **not** set or use this property in your csproj file.
 ```
@@ -114,7 +114,7 @@ The root directory of your KSP 1 install. Setting this and {confval}`KSPBT_Retoo
 ```{warning}
 You should **not** set or use this property in your csproj file.
 ```
-The root directory of your KSP Retooled install. Setting this and {confval}`KSPBT_KSP1GameRoot` builds your mod for both games. See [](retooled.md).
+The root directory of your KSP Retooled install. Setting this and {confval}`KSPBT_StockGameRoot` builds your mod for both games. See [](retooled.md).
 ````
 
 ## Items

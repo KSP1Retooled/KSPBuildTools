@@ -63,7 +63,7 @@
     <_KSPBT_UnityAssembly Include="UnityEngine.XRModule"/>
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(KSPBT_TargetGame)' == 'KSP1' ">
+  <ItemGroup Condition=" '$(KSPBT_TargetGame)' == 'Stock' ">
     <_KSPBT_UnityAssembly Include="Unity.Analytics.DataPrivacy"/>
     <_KSPBT_UnityAssembly Include="Unity.Analytics.StandardEvents"/>
     <_KSPBT_UnityAssembly Include="Unity.Analytics.Tracker"/>

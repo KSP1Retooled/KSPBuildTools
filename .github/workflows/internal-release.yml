@@ -1,0 +1,78 @@
+# This is an internal workflow for KSP1Retooled.BuildTools and not intended to be used by other projects
+
+# NuGet trusted publishing is tied to this file's name and the NuGet environment. If either changes, the policy on
+# nuget.org has to change with it.
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+env:
+  NuGetDirectory: ${{ github.workspace }}/nuget
+
+jobs:
+  ci:
+    uses: './.github/workflows/internal-ci.yml'
+    with:
+      skip-assetbundle: true # it needs Unity credentials, and doesn't test anything in the package
+
+  publish:
+    runs-on: ubuntu-24.04
+    needs: [ ci ]
+    environment:
+      name: "NuGet"
+      url: "https://www.nuget.org/packages/KSP1Retooled.BuildTools"
+    permissions:
+      contents: write # create the Github release
+      id-token: write # log in to NuGet
+      packages: write # publish to Github packages
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Changelog Information
+        uses: drewcassidy/yaclog@1.5.0
+        id: yaclog-show
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: nuget-package
+          path: ${{ env.NuGetDirectory }}
+
+      # The key this gets expires after an hour, so this stays right before the push
+      - name: Log In to NuGet
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Publish Package to NuGet
+        run: >-
+          dotnet nuget push ${{ env.NuGetDirectory }}/*.nupkg
+          --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
+
+      - name: Authenticate with Github
+        run: >-
+          dotnet nuget add source --username ${{ github.repository_owner }} --password ${{ secrets.GITHUB_TOKEN }}
+          --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+
+      - name: Publish Package to Github
+        run: |
+          dotnet nuget push --source "github" ${{ env.NuGetDirectory }}/*.nupkg --skip-duplicate
+
+      - name: Publish to Github Releases
+        run: >
+          gh release create ${{ github.ref_name }}
+          --notes-file "${{ steps.yaclog-show.outputs.body-file }}"
+          --title "${{ needs.ci.outputs.package-version }}"
+          ${{ env.NuGetDirectory }}/*.nupkg
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

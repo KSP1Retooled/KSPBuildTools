@@ -26,7 +26,7 @@
 
   <!--
   A build explicitly targeting Retooled gets its own output folders, so that it never shares incremental
-  state with the KSP1 build of the same project. This has to happen before the project's output paths are
+  state with the stock build of the same project. This has to happen before the project's output paths are
   calculated, which is why it is in the props file. An autodetected target isn't known yet at this point, but
   it doesn't need this since only one game is being built.
   -->
@@ -106,7 +106,7 @@
     <_KSPBT_RetooledIdentifier>UnityEngine.HierarchyCoreModule.dll</_KSPBT_RetooledIdentifier>
 
     <!-- Used when the game's readme.txt isn't available, as is the case for most KSP libs zips -->
-    <_KSPBT_DefaultKSP1Version>1.12.5</_KSPBT_DefaultKSP1Version>
+    <_KSPBT_DefaultStockVersion>1.12.5</_KSPBT_DefaultStockVersion>
     <_KSPBT_DefaultRetooledVersion>1.13.0</_KSPBT_DefaultRetooledVersion>
   </PropertyGroup>
 

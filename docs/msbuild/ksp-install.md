@@ -6,7 +6,7 @@ There are several options for this. KSP1Retooled.BuildTools will choose in the f
 
 ### Per-Game Properties
 
-If {confval}`KSPBT_KSP1GameRoot` and {confval}`KSPBT_RetooledGameRoot` are both set, the mod is built for both games using those installs. See [](retooled.md).
+If {confval}`KSPBT_StockGameRoot` and {confval}`KSPBT_RetooledGameRoot` are both set, the mod is built for both games using those installs. See [](retooled.md).
 
 ### KSPBT_GameRoot MSBuild Property
 

@@ -12,7 +12,7 @@ public class PluginModMulti : MonoBehaviour
     // Only compiles if Unity 6 and its packages are referenced
     public Unity.Mathematics.float3 position;
 #else
-    public const string Game = "KSP1";
+    public const string Game = "Stock";
 #endif
 
     private void Start()

@@ -33,7 +33,7 @@ To build for both games at once, set the path to each install. Since these are s
 <!-- MyMod.csproj.user -->
 <Project>
   <PropertyGroup>
-    <KSPBT_KSP1GameRoot>C:\Games\Kerbal Space Program</KSPBT_KSP1GameRoot>
+    <KSPBT_StockGameRoot>C:\Games\Kerbal Space Program</KSPBT_StockGameRoot>
     <KSPBT_RetooledGameRoot>C:\Games\KSP Retooled</KSPBT_RetooledGameRoot>
   </PropertyGroup>
 </Project>
@@ -76,7 +76,7 @@ The {gha:action}`compile` action unpacks its `ksp-zip-url` to `KSP_ROOT`, by def
 
 - uses: KSP1Retooled/KSPBuildTools/.github/actions/compile@main
   env:
-    KSPBT_KSP1GameRoot: /tmp/ksp
+    KSPBT_StockGameRoot: /tmp/ksp
     KSPBT_RetooledGameRoot: /tmp/retooled
 ```
 
