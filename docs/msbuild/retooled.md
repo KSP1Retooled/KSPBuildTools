@@ -9,7 +9,6 @@ There is nothing to set up. The game is detected from the install found by [the 
 When building against Retooled:
 
 - The `KSP_RETOOLED` and `UNITY_6_7` symbols are defined
-- `netstandard.dll` is referenced as well
 - The assembly gets a `[KSPAssemblyDependency("KSP", 1, 13)]` attribute, so stock KSP won't load it. This is part of {confval}`KSPBT_GenerateDependencyAttributes`
 - `KSPVersionFile` items default to that version of KSP
 

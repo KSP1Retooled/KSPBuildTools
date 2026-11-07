@@ -153,6 +153,11 @@
       <Name>netstandard (KSP/Mono)</Name>
       <Private>False</Private>
     </Reference>
+    <!-- Stock KSP doesn't ship this, mods there get it from KSPBurst -->
+    <Reference Include="$(KSPBT_ManagedPath)/System.Runtime.CompilerServices.Unsafe.dll" Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">
+      <Name>System.Runtime.CompilerServices.Unsafe (KSP/Mono)</Name>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(KSPBT_ReferenceUnityAssemblies)' == 'true' ">
     <Reference Include="@(_KSPBT_UnityAssembly->'$(KSPBT_ManagedPath)/%(Identity).dll'->Exists())">

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file
 
+## Unreleased
+
+## 2.0.2 - 2026-11-07
+
+### Msbuild
+
+- `System.Runtime.CompilerServices.Unsafe` is now referenced when building for Retooled
+
 ## 2.0.1 - 2026-11-06
 
 ### Msbuild

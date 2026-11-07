@@ -11,6 +11,9 @@ public class PluginModMulti : MonoBehaviour
 
     // Only compiles if Unity 6 and its packages are referenced
     public Unity.Mathematics.float3 position;
+
+    // Only compiles if the game's System.Runtime.CompilerServices.Unsafe is referenced
+    public static readonly int IntSize = System.Runtime.CompilerServices.Unsafe.SizeOf<int>();
 #else
     public const string Game = "Stock";
 #endif
