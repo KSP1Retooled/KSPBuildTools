@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file
 
 ## Unreleased
 
+## 2.0.3 - 2026-11-07
+
 ### Msbuild
 
 - The Retooled DLL is now named `MyMod.zRetooled.dll` instead of

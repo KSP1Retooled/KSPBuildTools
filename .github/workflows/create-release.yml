@@ -64,7 +64,7 @@ jobs:
           submodules: true
 
       - name: update-version
-        uses: KSP1Retooled/KSPBuildTools/.github/actions/update-version@2.0.2
+        uses: KSP1Retooled/KSPBuildTools/.github/actions/update-version@2.0.3
         with:
           version-string: ${{ inputs.version-string }}
           template-extension: ${{ inputs.version-template-extension }}
@@ -81,18 +81,18 @@ jobs:
           git tag -f -a "$VERSION_STRING" -m "$VERSION_STRING"
 
       # Install CKAN and set up an instance
-      - uses: KSP1Retooled/KSPBuildTools/.github/actions/setup-ckan@2.0.2
+      - uses: KSP1Retooled/KSPBuildTools/.github/actions/setup-ckan@2.0.3
         if: ${{ (inputs.use-ckan && inputs.use-msbuild) || inputs.dependency-identifiers }}
 
       # Install any listed CKAN dependencies
-      - uses: KSP1Retooled/KSPBuildTools/.github/actions/install-dependencies@2.0.2
+      - uses: KSP1Retooled/KSPBuildTools/.github/actions/install-dependencies@2.0.3
         if: ${{ inputs.dependency-identifiers }}
         with:
           dependency-identifiers: ${{ inputs.dependency-identifiers }}
 
       - name: compile
         if: ${{ inputs.use-msbuild }}
-        uses: KSP1Retooled/KSPBuildTools/.github/actions/compile@2.0.2
+        uses: KSP1Retooled/KSPBuildTools/.github/actions/compile@2.0.3
         with:
           build-configuration: ${{ inputs.build-configuration }}
           ksp-zip-url: ${{ inputs.ksp-zip-url }}
@@ -101,7 +101,7 @@ jobs:
 
       - name: assemble-release
         id: assemble-release
-        uses: KSP1Retooled/KSPBuildTools/.github/actions/assemble-release@2.0.2
+        uses: KSP1Retooled/KSPBuildTools/.github/actions/assemble-release@2.0.3
         with:
           artifacts: ${{ inputs.artifacts }}
           output-file-name: ${{ github.event.repository.name }}-${{ env.VERSION_STRING }}
