@@ -44,11 +44,11 @@ Each build then compiles the project twice and puts both DLLs in {confval}`KSPBT
 
 ```
 GameData/MyMod/Plugins/
-  MyMod.dll                loaded by stock KSP
-  MyMod.Retooled.1.13.dll  loaded by Retooled
+  MyMod.dll            loaded by stock KSP
+  MyMod.zRetooled.dll  loaded by Retooled
 ```
 
-Both are named `MyMod` as far as the runtime is concerned, and only the file differs. Retooled loads the DLL requiring the newest version of KSP that it can satisfy, and stock KSP refuses `MyMod.Retooled.1.13.dll` because of its dependency on KSP 1.13. Both use the same `PluginData` folder as long as {confval}`KSPBT_GenerateAssemblyAttribute` is on.
+Both are named `MyMod` as far as the runtime is concerned, and only the file differs. Retooled loads the DLL requiring the newest version of KSP that it can satisfy, and stock KSP refuses `MyMod.zRetooled.dll` because of its dependency on KSP 1.13. Both use the same `PluginData` folder as long as {confval}`KSPBT_GenerateAssemblyAttribute` is on.
 
 The Retooled build uses its own `bin/retooled` and `obj/retooled` folders. A few things are specific to building both:
 

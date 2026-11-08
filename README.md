@@ -68,7 +68,7 @@ From there you should be able to build your mod with just `dotnet build`
 
 Whether you are building for stock KSP or for KSP Retooled is detected from your KSP install. When building for Retooled the `KSP_RETOOLED` and `UNITY_6_7` symbols are defined.
 
-To build for both, set the path to each install in your `.csproj.user` file. Your mod then gets a `MyMod.dll` for stock KSP and a `MyMod.Retooled.1.13.dll` for Retooled, and each game loads the right one.
+To build for both, set the path to each install in your `.csproj.user` file. Your mod then gets a `MyMod.dll` for stock KSP and a `MyMod.zRetooled.dll` for Retooled, and each game loads the right one.
 
 ```xml
 <KSPBT_StockGameRoot>C:\Games\Kerbal Space Program</KSPBT_StockGameRoot>
