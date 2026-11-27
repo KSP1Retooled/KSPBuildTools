@@ -10,6 +10,7 @@ When building against Retooled:
 
 - The `KSP_RETOOLED` and `UNITY_6_7` symbols are defined
 - The assembly gets a `[KSPAssemblyDependency("KSP", 1, 13)]` attribute, so stock KSP won't load it. This is part of {confval}`KSPBT_GenerateDependencyAttributes`
+- {confval}`KSPBT_GenerateAssemblyAttribute` generates `KSPAssemblyVariant` instead of `KSPAssembly`. Retooled reads it the same way, and stock KSP ignores it, so a Retooled DLL can't take the name of the stock DLL beside it
 - `KSPVersionFile` items default to that version of KSP
 
 The symbols let you share code between both games:

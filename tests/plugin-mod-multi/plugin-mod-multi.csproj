@@ -33,4 +33,17 @@
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)../../KSPCommon.targets" />
+
+  <!-- Stock KSP must not see a KSPAssembly attribute on the Retooled DLL, or it can take the stock DLL's name -->
+  <Target Name="CheckAssemblyAttribute" AfterTargets="KSPBT_GenerateAssemblyAttribute">
+    <PropertyGroup>
+      <_ExpectedAttribute>KSPAssembly</_ExpectedAttribute>
+      <_ExpectedAttribute Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">KSPAssemblyVariant</_ExpectedAttribute>
+    </PropertyGroup>
+    <ItemGroup>
+      <_NameAttribute Include="@(AssemblyAttribute)" Condition=" '%(Identity)' == 'KSPAssembly' Or '%(Identity)' == 'KSPAssemblyVariant' "/>
+    </ItemGroup>
+    <Error Text="Expected only $(_ExpectedAttribute) for $(KSPBT_TargetGame), but generated @(_NameAttribute)"
+           Condition=" '@(_NameAttribute)' != '$(_ExpectedAttribute)' "/>
+  </Target>
 </Project>

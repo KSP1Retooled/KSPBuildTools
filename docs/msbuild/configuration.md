@@ -58,7 +58,7 @@ If set to `true`, adds references to the assemblies included in `ModReference` l
 ---
 default: `true`, except in the `Unity` configuration
 ---
-If set to `true`, automatically generates the `KSPAssembly` for your assembly from the `Version` property.
+If set to `true`, automatically generates the `KSPAssembly` for your assembly from the `Version` property. Building for Retooled generates `KSPAssemblyVariant` instead.
 ```
 
 ```{confval} KSPBT_GenerateDependencyAttributes

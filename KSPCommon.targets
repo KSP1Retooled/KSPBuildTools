@@ -273,11 +273,21 @@
     <Delete Files="$(_CKANScript)"/>
   </Target>
 
-  <!-- Generate the KSPAssembly attribute based on the FileVersion property -->
+  <!--
+  Generate the KSPAssembly attribute based on the FileVersion property
+
+  Retooled builds get KSPAssemblyVariant instead. Stock KSP doesn't recognise it, so a Retooled DLL that stock loads
+  first can't take the name of the stock DLL beside it.
+  -->
+  <PropertyGroup>
+    <_KSPBT_AssemblyAttributeType>KSPAssembly</_KSPBT_AssemblyAttributeType>
+    <_KSPBT_AssemblyAttributeType Condition=" '$(KSPBT_TargetGame)' == 'Retooled' ">KSPAssemblyVariant</_KSPBT_AssemblyAttributeType>
+  </PropertyGroup>
+
   <Target Name="KSPBT_GenerateAssemblyAttribute" BeforeTargets="CoreGenerateAssemblyInfo"
           Condition="'$(KSPBT_GenerateAssemblyAttribute)' == 'true'">
     <ItemGroup>
-      <AssemblyAttribute Include="KSPAssembly">
+      <AssemblyAttribute Include="$(_KSPBT_AssemblyAttributeType)">
         <_Parameter1>$(AssemblyName)</_Parameter1>
         <_Parameter1_TypeName>System.String</_Parameter1_TypeName>
         <_Parameter2>$(FileVersion.Split('.')[0])</_Parameter2>
