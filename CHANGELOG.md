@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file
 
 ## Unreleased
 
+## 2.0.4 - 2026-11-27
+
 ### Msbuild
 
 - Retooled builds now get a `KSPAssemblyVariant` attribute instead of
